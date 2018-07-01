@@ -2,3 +2,7 @@
 /.gradle
 /build
 /dist
+.gradle
+/build/
+!gradle-wrapper.jar
+.gradletasknamecache

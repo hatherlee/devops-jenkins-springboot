@@ -12,6 +12,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.sonarqube'
 
 bootJar {
     baseName = 'devops-jenkins-springboot'
@@ -29,3 +30,12 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+sonarqube {
+    sonarProperties {
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.projectName", "devops-jenkins-springboot"
+        property "sonar.projectKey", "devops-jenkins-springboot"
+        property "sonar.sources", "src/main/java"
+    }
+}   

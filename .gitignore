@@ -1,6 +1,2 @@
 /.gradle
-.gradle
-!gradle-wrapper.jar
-.gradletasknamecache
-*.class
-*bin*
+/bin

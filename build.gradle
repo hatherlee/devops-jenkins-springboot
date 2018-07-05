@@ -45,3 +45,43 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 } 
+
+
+//artifactory
+
+apply plugin: 'com.jfrog.artifactory'
+
+apply plugin: 'maven-publish'
+
+def packageName = 'com.iceiron.devops-jenkins-springboot'
+def libraryVersion = '1.0.0'
+
+
+publishing {
+    	publications {
+         aar(MavenPublication) {
+            groupId packageName
+            version = libraryVersion
+            artifactId project.getName()
+            // Tell maven to prepare the generated "*.aar" file for publishing
+            artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+        }
+    }
+}
+artifactory {
+    contextUrl = 'http://localhost:8081/artifactory'
+    publish {
+        repository {
+            repoKey = 'gradle-dev'
+            username = "admin"
+            password = "admin"
+        }
+        defaults {
+            publications('aar')
+            publishArtifacts = true
+            properties = ['qa.level': 'basic', 'dev.team': 'core']
+            publishPom = true
+        }
+    }
+}
+}
